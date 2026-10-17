@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Pay</title>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await SimUPI.apiFetch('/auth/me');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success && data.data) {
+                        SimUPI.replacePage('dashboard.html');
+                        return;
+                    }
+                }
+            } catch (ignored) {}
+            SimUPI.replacePage('login.html');
+        });
+    </script>
+</head>
+<body style="background: #5f259f; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif;">
+    <div style="text-align: center;">
+        <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 8px;">UPI Pay</h2>
+        <p style="font-size: 0.9rem; opacity: 0.85;">Opening application...</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History - UPI Pay</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .history-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 260px;
+            position: relative;
+        }
+
+        .search-box input {
+            padding-left: 40px;
+            border-radius: var(--radius-pill);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Top Navbar -->
+    <header class="desktop-navbar">
+        <div class="desktop-navbar-inner">
+            <a href="dashboard.html" class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                </div>
+                <span>UPI PAY</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-link" data-nav="home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="send.html" class="nav-link" data-nav="send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <span>Send Money</span>
+                </a>
+                <a href="history.html" class="nav-link active" data-nav="history">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Passbook</span>
+                </a>
+                <a href="qr.html" class="nav-link" data-nav="qr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>My QR</span>
+                </a>
+            </nav>
+
+            <div class="nav-user-actions">
+                <div class="user-profile-badge">
+                    <div class="user-avatar-sm" id="user-avatar-initial">U</div>
+                    <div>
+                        <div class="user-name-sm" id="user-display-name">Loading...</div>
+                        <div class="user-upi-sm" id="user-upi-id">user@simupi</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="SimUPI.logout()" title="Logout">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+        <div style="margin-bottom: 24px;">
+            <h1 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;">Transaction History</h1>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px;">
+                Complete record of all sent and received UPI transactions
+            </p>
+        </div>
+
+        <div class="card" style="box-shadow: var(--shadow-sm);">
+            <!-- Controls Bar: Search & Filter Tabs -->
+            <div class="history-controls">
+                <div class="filter-tabs" style="margin: 0;">
+                    <button class="filter-tab active" data-type="ALL">ALL</button>
+                    <button class="filter-tab" data-type="SENT">PAID (DEBIT)</button>
+                    <button class="filter-tab" data-type="RECEIVED">RECEIVED (CREDIT)</button>
+                </div>
+
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="tx-search-input" class="form-control" placeholder="Search by recipient name, note, or UTR...">
+                </div>
+            </div>
+
+            <!-- Transaction List -->
+            <div class="transaction-list" id="history-transactions-list">
+                <div style="text-align: center; padding: 48px 20px; color: var(--text-muted); font-size: 0.95rem;">
+                    Loading your passbook...
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item" data-nav="home">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+        </a>
+        <a href="send.html" class="nav-item" data-nav="send">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Pay</span>
+        </a>
+        <a href="history.html" class="nav-item active" data-nav="history">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Passbook</span>
+        </a>
+        <a href="qr.html" class="nav-item" data-nav="qr">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>My QR</span>
+        </a>
+    </nav>
+
+    <script src="../js/app.js"></script>
+    <script>
+        let currentTypeFilter = 'ALL';
+        let searchDebounceTimer = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await SimUPI.requireAuth();
+            if (!user) return;
+
+            document.getElementById('user-display-name').textContent = user.name;
+            document.getElementById('user-avatar-initial').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('user-upi-id').textContent = user.upiId;
+
+            SimUPI.initNavigation('history');
+
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentTypeFilter = tab.getAttribute('data-type');
+                    fetchHistory();
+                });
+            });
+
+            const searchInput = document.getElementById('tx-search-input');
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchDebounceTimer);
+                searchDebounceTimer = setTimeout(fetchHistory, 350);
+            });
+
+            fetchHistory();
+        });
+
+        async function fetchHistory() {
+            const list = document.getElementById('history-transactions-list');
+            const search = document.getElementById('tx-search-input').value.trim();
+
+            const params = new URLSearchParams();
+            if (currentTypeFilter) params.append('type', currentTypeFilter);
+            if (search) params.append('search', search);
+
+            try {
+                const res = await SimUPI.apiFetch(`/transactions?${params.toString()}`);
+                const data = await res.json();
+
+                if (!res.ok || !data.success || !data.data || data.data.length === 0) {
+                    list.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 12px; color: var(--text-muted);">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                            <div style="font-size: 1rem; font-weight: 700; color: var(--text-secondary);">No transactions found</div>
+                            <p style="font-size: 0.85rem; margin-top: 4px;">Try modifying your search or filter criteria.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                list.innerHTML = data.data.map(tx => {
+                    const isDebit = tx.debit;
+                    const counterParty = isDebit ? (tx.receiverName || 'UPI User') : (tx.senderName || 'UPI User');
+                    const initial = counterParty.charAt(0).toUpperCase();
+                    const sign = isDebit ? '-' : '+';
+                    const amountClass = isDebit ? 'debit' : 'credit';
+                    const badgeClass = `badge-${tx.status.toLowerCase()}`;
+
+                    return `
+                        <a href="receipt.html?utr=${tx.utr}" class="transaction-item" style="padding: 18px 16px;">
+                            <div class="tx-left">
+                                <div class="tx-avatar" style="width: 48px; height: 48px; font-size: 1.1rem;">${initial}</div>
+                                <div class="tx-details">
+                                    <div class="tx-name" style="font-size: 1rem;">${counterParty}</div>
+                                    <div class="tx-meta" style="font-size: 0.82rem;">
+                                        ${SimUPI.formatDateTime(tx.createdAt)}
+                                        ${tx.note ? ` • "${tx.note}"` : ''}
+                                    </div>
+                                    <div style="font-size: 0.72rem; color: var(--text-muted); font-family: monospace;">
+                                        UTR: ${tx.utr}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-right">
+                                <div class="tx-amount ${amountClass}" style="font-size: 1.15rem;">${sign} ${SimUPI.formatINR(tx.amount)}</div>
+                                <span class="badge ${badgeClass}">${tx.status}</span>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+            } catch (err) {
+                list.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--danger); font-size: 0.95rem;">${err.message || 'Failed to load passbook'}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

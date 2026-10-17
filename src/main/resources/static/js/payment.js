@@ -150,7 +150,7 @@ const PaymentModule = {
                     document.getElementById('success-amount-text').textContent = SimUPI.formatINR(result.data.amount);
                     document.getElementById('success-receiver-name').textContent = result.data.receiverName;
                     document.getElementById('success-utr-text').textContent = result.data.utr;
-                    document.getElementById('success-receipt-btn').href = `/pages/receipt.html?utr=${result.data.utr}`;
+                    document.getElementById('success-receipt-btn').href = `receipt.html?utr=${result.data.utr}`;
                 }
             } else {
                 // Render Failure Screen

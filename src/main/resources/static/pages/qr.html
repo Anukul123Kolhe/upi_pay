@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My QR Code - UPI Pay</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <!-- Desktop Top Navbar -->
     <header class="desktop-navbar">
         <div class="desktop-navbar-inner">
-            <a href="/pages/dashboard.html" class="nav-brand">
+            <a href="dashboard.html" class="nav-brand">
                 <div class="brand-icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
                         <rect x="2" y="5" width="20" height="14" rx="2"></rect>
@@ -21,19 +21,19 @@
             </a>
 
             <nav class="nav-links">
-                <a href="/pages/dashboard.html" class="nav-link" data-nav="home">
+                <a href="dashboard.html" class="nav-link" data-nav="home">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     <span>Dashboard</span>
                 </a>
-                <a href="/pages/send.html" class="nav-link" data-nav="send">
+                <a href="send.html" class="nav-link" data-nav="send">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     <span>Send Money</span>
                 </a>
-                <a href="/pages/history.html" class="nav-link" data-nav="history">
+                <a href="history.html" class="nav-link" data-nav="history">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     <span>Passbook</span>
                 </a>
-                <a href="/pages/qr.html" class="nav-link active" data-nav="qr">
+                <a href="qr.html" class="nav-link active" data-nav="qr">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     <span>My QR</span>
                 </a>
@@ -80,7 +80,7 @@
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         COPY UPI ID
                     </button>
-                    <a href="/pages/dashboard.html" class="btn btn-outline">
+                    <a href="dashboard.html" class="btn btn-outline">
                         BACK TO HOME
                     </a>
                 </div>
@@ -90,25 +90,25 @@
 
     <!-- Mobile Bottom Navigation Bar -->
     <nav class="bottom-nav">
-        <a href="/pages/dashboard.html" class="nav-item" data-nav="home">
+        <a href="dashboard.html" class="nav-item" data-nav="home">
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             <span>Home</span>
         </a>
-        <a href="/pages/send.html" class="nav-item" data-nav="send">
+        <a href="send.html" class="nav-item" data-nav="send">
             <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             <span>Pay</span>
         </a>
-        <a href="/pages/history.html" class="nav-item" data-nav="history">
+        <a href="history.html" class="nav-item" data-nav="history">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <span>Passbook</span>
         </a>
-        <a href="/pages/qr.html" class="nav-item active" data-nav="qr">
+        <a href="qr.html" class="nav-item active" data-nav="qr">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
             <span>My QR</span>
         </a>
     </nav>
 
-    <script src="/js/app.js"></script>
+    <script src="../js/app.js"></script>
     <script>
         let currentUser = null;
 

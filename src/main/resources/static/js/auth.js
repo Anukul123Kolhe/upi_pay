@@ -64,7 +64,7 @@ const AuthModule = {
 
             SimUPI.showToast('Account created & Bank account linked!', 'success');
             setTimeout(() => {
-                window.location.href = '/pages/dashboard.html';
+                SimUPI.goToPage('dashboard.html');
             }, 400);
         } catch (err) {
             SimUPI.showToast(err.message || 'Network error during registration.', 'error');
