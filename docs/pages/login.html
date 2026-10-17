@@ -93,7 +93,7 @@
                     <label for="login-mobile">Registered Mobile Number</label>
                     <div class="phone-input-group">
                         <div class="country-prefix">🇮🇳 +91</div>
-                        <input type="tel" id="login-mobile" class="phone-control" placeholder="10-digit mobile number" maxlength="10" required autofocus>
+                        <input type="tel" id="login-mobile" class="phone-control" placeholder="10-digit mobile number" maxlength="10" value="9876543210" required autofocus>
                     </div>
                 </div>
 
@@ -101,10 +101,14 @@
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <label for="login-password">Password</label>
                     </div>
-                    <input type="password" id="login-password" class="form-control" placeholder="Enter your account password" required>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your account password" value="password123" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" id="login-submit-btn" style="margin-top: 20px; padding: 14px; font-size: 1rem;">
+                <div style="margin-top: 12px; text-align: center; font-size: 0.8rem; color: var(--text-muted); background: #f8fafc; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px dashed var(--border-color);">
+                    Default Demo Login: <strong style="color: var(--primary);">9876543210</strong> • <strong style="color: var(--primary);">password123</strong> (UPI PIN: <strong style="color: var(--primary);">1234</strong>)
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="login-submit-btn" style="margin-top: 16px; padding: 14px; font-size: 1rem;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
