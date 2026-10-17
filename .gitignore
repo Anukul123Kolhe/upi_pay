@@ -1,0 +1,28 @@
+# Compiled class files & build artifacts
+target/
+*.class
+
+# Embedded local Maven binaries & wrapper downloads
+.maven/
+
+# H2 Database files & runtime data
+data/
+*.db
+*.mv.db
+*.trace.db
+
+# Log files
+*.log
+logs/
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My QR Code - UPI Pay</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Desktop Top Navbar -->
+    <header class="desktop-navbar">
+        <div class="desktop-navbar-inner">
+            <a href="/pages/dashboard.html" class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                </div>
+                <span>UPI PAY</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="/pages/dashboard.html" class="nav-link" data-nav="home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/pages/send.html" class="nav-link" data-nav="send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <span>Send Money</span>
+                </a>
+                <a href="/pages/history.html" class="nav-link" data-nav="history">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Passbook</span>
+                </a>
+                <a href="/pages/qr.html" class="nav-link active" data-nav="qr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>My QR</span>
+                </a>
+            </nav>
+
+            <div class="nav-user-actions">
+                <div class="user-profile-badge">
+                    <div class="user-avatar-sm" id="user-avatar-initial">U</div>
+                    <div>
+                        <div class="user-name-sm" id="user-display-name">Loading...</div>
+                        <div class="user-upi-sm" id="user-upi-id">user@simupi</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="SimUPI.logout()" title="Logout">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Wrapper -->
+    <main class="main-wrapper">
+        <div class="centered-page-wrapper">
+            <div class="card" style="text-align: center; padding: 40px 28px; box-shadow: var(--shadow-md);">
+                <div class="user-avatar-sm" id="qr-avatar" style="width: 64px; height: 64px; font-size: 1.5rem; margin: 0 auto 14px;">
+                    U
+                </div>
+                <h2 id="qr-user-name" style="font-size: 1.35rem; font-weight: 800; margin-bottom: 4px;">User Name</h2>
+                <div id="qr-upi-id" style="font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-bottom: 24px; font-family: monospace;">user@simupi</div>
+
+                <!-- QR Display -->
+                <div style="background: #ffffff; padding: 16px; border: 2px solid var(--border-color); border-radius: var(--radius-md); display: inline-block; box-shadow: var(--shadow-sm); margin-bottom: 20px;">
+                    <img id="qr-image" src="" alt="UPI QR Code" style="width: 220px; height: 220px; display: block;" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=demo@simupi'">
+                </div>
+
+                <div style="font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 24px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    Scan using any UPI app to transfer money directly to this account
+                </div>
+
+                <div style="display: flex; gap: 12px; max-width: 380px; margin: 0 auto;">
+                    <button type="button" class="btn btn-primary" onclick="copyUpiString()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        COPY UPI ID
+                    </button>
+                    <a href="/pages/dashboard.html" class="btn btn-outline">
+                        BACK TO HOME
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="/pages/dashboard.html" class="nav-item" data-nav="home">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+        </a>
+        <a href="/pages/send.html" class="nav-item" data-nav="send">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Pay</span>
+        </a>
+        <a href="/pages/history.html" class="nav-item" data-nav="history">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Passbook</span>
+        </a>
+        <a href="/pages/qr.html" class="nav-item active" data-nav="qr">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>My QR</span>
+        </a>
+    </nav>
+
+    <script src="/js/app.js"></script>
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            currentUser = await SimUPI.requireAuth();
+            if (!currentUser) return;
+
+            document.getElementById('user-display-name').textContent = currentUser.name;
+            document.getElementById('user-avatar-initial').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('user-upi-id').textContent = currentUser.upiId;
+
+            document.getElementById('qr-user-name').textContent = currentUser.name;
+            document.getElementById('qr-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('qr-upi-id').textContent = currentUser.upiId;
+
+            SimUPI.initNavigation('qr');
+
+            const upiUri = `upi://pay?pa=${encodeURIComponent(currentUser.upiId)}&pn=${encodeURIComponent(currentUser.name)}&cu=INR`;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=4&data=${encodeURIComponent(upiUri)}`;
+            document.getElementById('qr-image').src = qrUrl;
+        });
+
+        function copyUpiString() {
+            if (currentUser && currentUser.upiId) {
+                navigator.clipboard.writeText(currentUser.upiId);
+                SimUPI.showToast(`Copied UPI ID: ${currentUser.upiId}`, 'success');
+            }
+        }
+    </script>
+</body>
+</html>

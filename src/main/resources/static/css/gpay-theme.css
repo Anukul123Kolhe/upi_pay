@@ -1,0 +1,531 @@
+/* ====================================================================
+   SimUPI - Google Pay & PhonePe Themed Component Stylesheet
+   ==================================================================== */
+
+/* Quick Actions Grid (Home Dashboard) */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.action-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: var(--transition);
+}
+
+.action-tile:hover {
+    transform: translateY(-3px);
+}
+
+.tile-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    color: var(--primary);
+}
+
+.action-tile:hover .tile-icon {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(95, 37, 159, 0.3);
+}
+
+.tile-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    fill: none;
+}
+
+.tile-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Virtual Bank Account Card (PhonePe / GPay styled) */
+.bank-card {
+    background: linear-gradient(135deg, #2b1055, #7597de);
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 170px;
+}
+
+.bank-card::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.bank-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.bank-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.account-type-tag {
+    font-size: 0.65rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.bank-card-body {
+    margin: 14px 0 6px;
+}
+
+.account-number {
+    font-family: monospace;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.bank-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.balance-label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+}
+
+.balance-value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+
+/* Transaction List & Items */
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.transaction-item:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateX(2px);
+}
+
+.tx-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tx-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.tx-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tx-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.tx-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.tx-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.tx-amount {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.tx-amount.debit {
+    color: var(--danger);
+}
+
+.tx-amount.credit {
+    color: var(--success);
+}
+
+/* Status Badges */
+.badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+}
+
+.badge-success {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.badge-failed {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.badge-pending {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+/* Transaction Filters */
+.filter-tabs {
+    display: flex;
+    background: #e2e8f0;
+    padding: 3px;
+    border-radius: var(--radius-pill);
+    gap: 4px;
+}
+
+.filter-tab {
+    flex: 1;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-tab.active {
+    background: #ffffff;
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Modal On-Screen PIN Keypad Overlay */
+.keypad-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.keypad-modal-overlay.show {
+    display: flex;
+}
+
+.keypad-bottom-sheet {
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 24px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.keypad-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.keypad-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.keypad-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* PIN Indicator Dots */
+.pin-dots-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.pin-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: transparent;
+    transition: var(--transition);
+}
+
+.pin-dot.filled {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.15);
+}
+
+/* Numeric Keypad Grid */
+.keypad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.key-btn {
+    height: 58px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.key-btn:hover {
+    background: #e2e8f0;
+}
+
+.key-btn:active {
+    transform: scale(0.95);
+    background: #cbd5e1;
+}
+
+.key-btn.action-btn {
+    font-size: 0.95rem;
+    color: var(--primary);
+}
+
+.key-btn.submit-key {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+.key-btn.submit-key:hover {
+    background: var(--primary-light);
+}
+
+/* Animated Payment Success & Failure Screens */
+.result-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    min-height: 70vh;
+}
+
+.result-screen.show {
+    display: flex;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.result-icon-wrapper {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.result-icon-wrapper.success {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.result-icon-wrapper.failure {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.result-icon-wrapper svg {
+    width: 52px;
+    height: 52px;
+    stroke: currentColor;
+    stroke-width: 3;
+    fill: none;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: ringPulse 1.8s infinite;
+}
+
+.result-icon-wrapper.success .pulse-ring {
+    border: 3px solid var(--success);
+}
+
+.result-icon-wrapper.failure .pulse-ring {
+    border: 3px solid var(--danger);
+}
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.45);
+        opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Printable Digital Receipt */
+.receipt-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 24px;
+    border: 1px dashed #cbd5e1;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    padding: 6px 0;
+}
+
+.receipt-label {
+    color: var(--text-secondary);
+}
+
+.receipt-val {
+    font-weight: 600;
+    text-align: right;
+}
+
+@media print {
+    body {
+        background: #ffffff;
+    }
+    .app-container {
+        box-shadow: none;
+        max-width: 100%;
+        padding-bottom: 0;
+    }
+    .bottom-nav, .sim-banner, .btn-print, .btn-back {
+        display: none !important;
+    }
+    .receipt-card {
+        border: 1px solid #000;
+        box-shadow: none;
+    }
+}

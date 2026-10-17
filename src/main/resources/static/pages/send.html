@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Money - UPI Pay</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .verified-card {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .verified-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #059669;
+            color: white;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .amount-display-box {
+            text-align: center;
+            padding: 24px 16px;
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+        }
+
+        .amount-input-row {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin: 12px 0;
+        }
+
+        .currency-symbol {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .amount-large-input {
+            border: none;
+            outline: none;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            width: 240px;
+            text-align: left;
+            background: transparent;
+        }
+
+        .amount-chips-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .amount-chip {
+            padding: 7px 16px;
+            background: #f1f5f9;
+            border-radius: var(--radius-pill);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .amount-chip:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Top Navbar -->
+    <header class="desktop-navbar">
+        <div class="desktop-navbar-inner">
+            <a href="/pages/dashboard.html" class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                </div>
+                <span>UPI PAY</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="/pages/dashboard.html" class="nav-link" data-nav="home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/pages/send.html" class="nav-link active" data-nav="send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <span>Send Money</span>
+                </a>
+                <a href="/pages/history.html" class="nav-link" data-nav="history">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Passbook</span>
+                </a>
+                <a href="/pages/qr.html" class="nav-link" data-nav="qr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>My QR</span>
+                </a>
+            </nav>
+
+            <div class="nav-user-actions">
+                <div class="user-profile-badge">
+                    <div class="user-avatar-sm" id="user-avatar-initial">U</div>
+                    <div>
+                        <div class="user-name-sm" id="user-display-name">Loading...</div>
+                        <div class="user-upi-sm" id="user-upi-id">user@simupi</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="SimUPI.logout()" title="Logout">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Wrapper -->
+    <main class="main-wrapper">
+        <div class="centered-page-wrapper">
+            <!-- 1. Send Form Screen -->
+            <div id="send-form-screen">
+                <div class="card" style="box-shadow: var(--shadow-md);">
+                    <div class="card-title">
+                        <span>Pay by UPI ID or Mobile</span>
+                    </div>
+
+                    <!-- Recipient Input -->
+                    <div class="form-group">
+                        <label for="receiver-query">Enter Recipient's UPI ID or 10-Digit Mobile</label>
+                        <input type="text" id="receiver-query" class="form-control" placeholder="e.g. receiver@simupi or 9876543211" required autofocus>
+                    </div>
+
+                    <!-- Verified Recipient Preview -->
+                    <div id="verified-recipient-card" class="verified-card">
+                        <div class="verified-avatar" id="verified-avatar">P</div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.95rem; font-weight: 800; color: #065f46; display: flex; align-items: center; gap: 6px;">
+                                <span id="verified-name">Receiver Name</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#059669" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="16 9 10.5 14.5 8 12"></polyline></svg>
+                            </div>
+                            <div style="font-size: 0.78rem; color: #047857;" id="verified-upi">receiver@simupi</div>
+                        </div>
+                    </div>
+
+                    <!-- Amount Box (Google Pay Style) -->
+                    <div class="amount-display-box">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">
+                            Enter Transfer Amount
+                        </div>
+
+                        <div class="amount-input-row">
+                            <span class="currency-symbol">₹</span>
+                            <input type="number" id="payment-amount" class="amount-large-input" placeholder="0" min="1" max="100000" step="any" required>
+                        </div>
+
+                        <div class="amount-chips-row">
+                            <span class="amount-chip" data-amt="100">+ ₹100</span>
+                            <span class="amount-chip" data-amt="500">+ ₹500</span>
+                            <span class="amount-chip" data-amt="1000">+ ₹1,000</span>
+                            <span class="amount-chip" data-amt="2000">+ ₹2,000</span>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 20px; margin-bottom: 0;">
+                            <input type="text" id="payment-note" class="form-control" placeholder="Add a note (e.g. Dinner, Rent, Books)" maxlength="100" style="text-align: center; border-radius: var(--radius-pill);">
+                        </div>
+                    </div>
+
+                    <!-- Pay Button -->
+                    <button type="button" class="btn btn-primary" id="initiate-pay-btn" style="padding: 15px; font-size: 1.05rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        PAY SECURELY
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Success Screen -->
+            <div class="result-screen card" id="payment-success-screen">
+                <div class="result-icon-wrapper success">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--success); margin-bottom: 4px;">Payment Successful!</h2>
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--text-primary); margin: 12px 0;" id="success-amount-text">₹0.00</div>
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">
+                    Paid to <strong id="success-receiver-name" style="color: var(--text-primary);">Recipient</strong>
+                </p>
+                <div style="margin-top: 8px; font-size: 0.85rem; color: var(--text-muted);">
+                    UPI Reference (UTR): <code id="success-utr-text" style="font-weight: 700; color: var(--primary);">202610170000</code>
+                </div>
+
+                <div style="width: 100%; display: flex; gap: 12px; margin-top: 32px;">
+                    <a href="#" class="btn btn-primary" id="success-receipt-btn">
+                        VIEW RECEIPT
+                    </a>
+                    <a href="/pages/dashboard.html" class="btn btn-outline">
+                        BACK TO DASHBOARD
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. Failure Screen -->
+            <div class="result-screen card" id="payment-failure-screen">
+                <div class="result-icon-wrapper failure">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+                <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--danger); margin-bottom: 4px;">Payment Failed</h2>
+                <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 360px; margin: 12px 0;" id="failure-reason-text">
+                    Your transaction could not be processed.
+                </p>
+
+                <div style="width: 100%; display: flex; gap: 12px; margin-top: 28px;">
+                    <button type="button" class="btn btn-primary" onclick="window.location.reload()">
+                        TRY AGAIN
+                    </button>
+                    <a href="/pages/dashboard.html" class="btn btn-outline">
+                        BACK TO DASHBOARD
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="/pages/dashboard.html" class="nav-item" data-nav="home">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+        </a>
+        <a href="/pages/send.html" class="nav-item active" data-nav="send">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Pay</span>
+        </a>
+        <a href="/pages/history.html" class="nav-item" data-nav="history">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Passbook</span>
+        </a>
+        <a href="/pages/qr.html" class="nav-item" data-nav="qr">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>My QR</span>
+        </a>
+    </nav>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/keypad.js"></script>
+    <script src="/js/payment.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await SimUPI.requireAuth();
+            if (!user) return;
+
+            document.getElementById('user-display-name').textContent = user.name;
+            document.getElementById('user-avatar-initial').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('user-upi-id').textContent = user.upiId;
+
+            SimUPI.initNavigation('send');
+            PaymentModule.initSendPage();
+        });
+    </script>
+</body>
+</html>
